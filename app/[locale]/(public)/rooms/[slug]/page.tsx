@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import GalleryLightbox from '@/components/gallery-lightbox'
 
 export default async function RoomDetailPage({
   params,
@@ -22,6 +23,13 @@ export default async function RoomDetailPage({
     .single()
 
   if (!room) notFound()
+
+  const { data: relatedRooms } = await supabase
+    .from('room_types')
+    .select('slug, name_id, name_en, base_price, max_guests, bed_type')
+    .neq('slug', slug)
+    .order('base_price', { ascending: true })
+    .limit(3)
 
   const name = locale === 'id' ? room.name_id : room.name_en
   const description = locale === 'id' ? room.description_id : room.description_en
@@ -86,27 +94,12 @@ export default async function RoomDetailPage({
             </div>
 
             {/* Gallery */}
-            {room.room_photos && room.room_photos.length > 1 && (
+            {room.room_photos && room.room_photos.length > 0 && (
               <div className="mt-12">
                 <h2 className="font-heading text-xl font-medium text-zinc-900">
                   {locale === 'id' ? 'Galeri' : 'Gallery'}
                 </h2>
-                <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                  {room.room_photos.map(
-                    (p: { id: string; url: string; sort_order: number }) => (
-                      <div
-                        key={p.id}
-                        className="aspect-[4/3] overflow-hidden rounded-xl bg-zinc-100"
-                      >
-                        <img
-                          src={p.url}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
+                <GalleryLightbox photos={room.room_photos} locale={locale} />
               </div>
             )}
           </div>
@@ -204,6 +197,51 @@ export default async function RoomDetailPage({
             )}
           </aside>
         </div>
+
+        {/* Related Rooms */}
+        {relatedRooms && relatedRooms.length > 0 && (
+          <section className="mt-24 border-t border-zinc-100 pt-16">
+            <h2 className="font-heading text-2xl font-light text-zinc-900">
+              {locale === 'id' ? 'Kamar Lainnya' : 'Other Rooms'}
+            </h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedRooms.map((r) => {
+                const rName = locale === 'id' ? r.name_id : r.name_en
+                const rPrice = new Intl.NumberFormat(
+                  locale === 'id' ? 'id-ID' : 'en-US',
+                  {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0,
+                  }
+                ).format(r.base_price)
+                return (
+                  <Link
+                    key={r.slug}
+                    href={`/${locale}/rooms/${r.slug}`}
+                    className="group rounded-2xl border border-zinc-200 bg-white p-1.5 transition-all hover:-translate-y-1 hover:shadow-lg"
+                  >
+                    <div className="flex aspect-[4/3] items-center justify-center rounded-xl bg-gradient-to-br from-zinc-100 to-zinc-200">
+                      <span className="text-4xl opacity-30">🏡</span>
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-heading text-sm font-medium text-zinc-900">
+                        {rName}
+                      </h3>
+                      <div className="mt-2 flex items-center justify-between text-xs">
+                        <span className="text-zinc-400">
+                          {r.max_guests} {locale === 'id' ? 'tamu' : 'guests'} ·{' '}
+                          {r.bed_type}
+                        </span>
+                        <span className="font-medium text-zinc-800">{rPrice}</span>
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </section>
+        )}
       </div>
     </div>
   )

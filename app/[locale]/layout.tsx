@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
+import WhatsAppWidget from '@/components/whatsapp-widget'
 
 export default async function LocaleLayout({
   children,
@@ -18,6 +19,7 @@ export default async function LocaleLayout({
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <WhatsAppWidget />
     </NextIntlClientProvider>
   )
 }
