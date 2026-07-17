@@ -1,0 +1,23 @@
+{
+  "Navbar": {
+    "home": "Home",
+    "rooms": "Rooms",
+    "about": "About",
+    "explore": "Explore",
+    "contact": "Contact",
+    "bookNow": "Book Now"
+  },
+  "Footer": {
+    "address": "West Sumba, East Nusa Tenggara",
+    "phone": "+62 812 3456 7890",
+    "email": "info@threequeenvilla.com",
+    "copyright": "Three Queen Villa and Homestay. All Rights Reserved."
+  },
+  "HomePage": {
+    "title": "Three Queen Villa and Homestay",
+    "subtitle": "An authentic stay experience in West Sumba — where tradition meets modern comfort.",
+    "heroEyebrow": "Welcome",
+    "heroDesc": "An authentic stay experience in West Sumba — where tradition meets modern comfort.",
+    "seeRooms": "See Rooms"
+  }
+}
