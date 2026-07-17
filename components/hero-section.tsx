@@ -8,6 +8,7 @@ import SearchWidget from './search-widget'
 
 export default function HeroSection() {
   const t = useTranslations('Navbar')
+  const h = useTranslations('HomePage')
   const pathname = usePathname()
   const locale = pathname.split('/')[1] || 'id'
   const { scrollY } = useScroll()
@@ -74,7 +75,7 @@ export default function HeroSection() {
           transition={{ delay: 0.5, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="mx-auto mt-6 max-w-lg text-base leading-relaxed text-white/40"
         >
-          Pengalaman menginap autentik di Sumba Barat — di mana tradisi bertemu kenyamanan modern.
+          {h('heroDesc')}
         </motion.p>
 
         <motion.div
@@ -96,7 +97,7 @@ export default function HeroSection() {
             href={`/${locale}/rooms`}
             className="rounded-full border border-white/10 px-8 py-3 text-sm font-medium text-white/60 transition-all duration-300 hover:border-white/20 hover:text-white active:scale-[0.98]"
           >
-            Lihat Kamar
+            {h('seeRooms')}
           </Link>
         </motion.div>
 

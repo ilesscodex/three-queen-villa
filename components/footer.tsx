@@ -17,7 +17,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Kontak
+              {t('contactTitle')}
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -34,7 +34,7 @@ export default function Footer() {
           </div>
           <div>
             <h4 className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-gold">
-              Social
+              {t('socialTitle')}
             </h4>
             <div className="flex gap-4 text-sm">
               <a href="#" className="transition-colors hover:text-white">Instagram</a>

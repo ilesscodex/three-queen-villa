@@ -11,7 +11,9 @@
     "address": "Sumba Barat, Nusa Tenggara Timur",
     "phone": "+62 812 3456 7890",
     "email": "info@threequeenvilla.com",
-    "copyright": "Three Queen Villa and Homestay. Hak Cipta Dilindungi."
+    "copyright": "Three Queen Villa and Homestay. Hak Cipta Dilindungi.",
+    "contactTitle": "Kontak",
+    "socialTitle": "Sosial"
   },
   "HomePage": {
     "title": "Three Queen Villa and Homestay",
@@ -22,5 +24,16 @@
     "highlightEyebrow": "Tentang Villa",
     "highlightTitle": "Rumah tradisional Sumba, kenyamanan modern.",
     "highlightBody": "Three Queen Villa menghadirkan pengalaman menginap yang memadukan arsitektur tradisional Sumba dengan fasilitas modern. Setiap kamar dirancang untuk memberikan kenyamanan maksimal, dikelilingi oleh pemandangan alam Sumba Barat yang memukau. Nikmati ketenangan, keramahan lokal, dan petualangan budaya dalam satu tempat."
+  },
+  "SearchWidget": {
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "selectDate": "Pilih tanggal",
+    "checkAvailability": "Cek Ketersediaan"
+  },
+  "NotFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "backHome": "Kembali ke Beranda"
   }
 }

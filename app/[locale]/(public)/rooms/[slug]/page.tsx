@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import GalleryLightbox from '@/components/gallery-lightbox'
+import AvailabilityCalendar from '@/components/availability-calendar'
 
 export default async function RoomDetailPage({
   params,
@@ -169,6 +170,12 @@ export default async function RoomDetailPage({
                 </Link>
               </div>
             </div>
+
+            {/* Availability Calendar */}
+            <AvailabilityCalendar
+              roomTypeId={room.id}
+              unitCount={room.room_units?.length || 0}
+            />
 
             {/* Room Units */}
             {room.room_units && room.room_units.length > 0 && (

@@ -2,12 +2,14 @@
 
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { DayPicker } from 'react-day-picker'
 import { format } from 'date-fns'
 import { id as idLocale, enUS } from 'date-fns/locale'
 import 'react-day-picker/style.css'
 
 export default function SearchWidget() {
+  const t = useTranslations('SearchWidget')
   const router = useRouter()
   const pathname = usePathname()
   const locale = pathname.split('/')[1] || 'id'
@@ -34,10 +36,10 @@ export default function SearchWidget() {
           className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-left text-sm text-white/60 transition-colors hover:border-white/20"
         >
           <span className="text-[10px] font-medium uppercase tracking-wider text-white/30">
-            Check-in
+            {t('checkIn')}
           </span>
           <span className="block mt-0.5">
-            {checkIn ? format(checkIn, 'dd MMM yyyy', { locale: dateLocale }) : 'Pilih tanggal'}
+            {checkIn ? format(checkIn, 'dd MMM yyyy', { locale: dateLocale }) : t('selectDate')}
           </span>
         </button>
         {open === 'in' && (
@@ -60,10 +62,10 @@ export default function SearchWidget() {
           className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-left text-sm text-white/60 transition-colors hover:border-white/20"
         >
           <span className="text-[10px] font-medium uppercase tracking-wider text-white/30">
-            Check-out
+            {t('checkOut')}
           </span>
           <span className="block mt-0.5">
-            {checkOut ? format(checkOut, 'dd MMM yyyy', { locale: dateLocale }) : 'Pilih tanggal'}
+            {checkOut ? format(checkOut, 'dd MMM yyyy', { locale: dateLocale }) : t('selectDate')}
           </span>
         </button>
         {open === 'out' && (
@@ -84,7 +86,7 @@ export default function SearchWidget() {
         onClick={handleSearch}
         className="shrink-0 rounded-lg bg-white px-5 py-3 text-sm font-medium text-earth transition-all hover:bg-white/90 active:scale-[0.98]"
       >
-        Cek Ketersediaan
+        {t('checkAvailability')}
       </button>
     </div>
   )

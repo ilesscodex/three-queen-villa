@@ -11,7 +11,9 @@
     "address": "West Sumba, East Nusa Tenggara",
     "phone": "+62 812 3456 7890",
     "email": "info@threequeenvilla.com",
-    "copyright": "Three Queen Villa and Homestay. All Rights Reserved."
+    "copyright": "Three Queen Villa and Homestay. All Rights Reserved.",
+    "contactTitle": "Contact",
+    "socialTitle": "Social"
   },
   "HomePage": {
     "title": "Three Queen Villa and Homestay",
@@ -22,5 +24,16 @@
     "highlightEyebrow": "About the Villa",
     "highlightTitle": "Traditional Sumba house, modern comfort.",
     "highlightBody": "Three Queen Villa offers a stay that blends traditional Sumba architecture with modern amenities. Each room is designed for maximum comfort, surrounded by the stunning landscapes of West Sumba. Enjoy tranquility, local hospitality, and cultural adventure all in one place."
+  },
+  "SearchWidget": {
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "selectDate": "Select date",
+    "checkAvailability": "Check Availability"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "backHome": "Back to Home"
   }
 }
