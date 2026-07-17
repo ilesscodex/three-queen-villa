@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { motion, useScroll, useTransform, useReducedMotion } from 'motion/react'
+import SearchWidget from './search-widget'
 
 export default function HeroSection() {
   const t = useTranslations('Navbar')
@@ -97,6 +98,15 @@ export default function HeroSection() {
           >
             Lihat Kamar
           </Link>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12"
+        >
+          <SearchWidget />
         </motion.div>
       </div>
 
