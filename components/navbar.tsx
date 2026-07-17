@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { motion, AnimatePresence } from 'motion/react'
-import { List, X } from '@phosphor-icons/react'
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useReducedMotion } from 'motion/react'
 import Logo from './logo'
 import LanguageSwitcher from './language-switcher'
 
@@ -21,11 +20,30 @@ export default function Navbar() {
   const t = useTranslations('Navbar')
   const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const lastScroll = useRef(0)
+  const { scrollY } = useScroll()
+  const reduce = useReducedMotion()
+
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    if (reduce) return
+    const diff = latest - lastScroll.current
+    if (diff > 20 && latest > 200) {
+      setHidden(true)
+    } else if (diff < -10) {
+      setHidden(false)
+    }
+    lastScroll.current = latest
+  })
 
   const locale = pathname.split('/')[1] || 'id'
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 pointer-events-none">
+    <motion.nav
+      animate={hidden ? { y: -120, opacity: 0 } : { y: 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 pointer-events-none"
+    >
       <div className="pointer-events-auto mx-auto flex w-full max-w-5xl items-center justify-between rounded-full border border-white/10 bg-white/70 px-5 py-2 shadow-lg shadow-black/5 backdrop-blur-2xl supports-[backdrop-filter]:bg-white/80">
         <Link href={`/${locale}`} className="shrink-0">
           <Logo />
@@ -76,14 +94,17 @@ export default function Navbar() {
           <div className="relative flex h-8 w-8 items-center justify-center">
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
+              transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
               className="absolute h-px w-4 bg-zinc-800"
             />
             <motion.span
               animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.2 }}
               className="absolute h-px w-4 bg-zinc-800"
             />
             <motion.span
               animate={menuOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
+              transition={{ ease: [0.16, 1, 0.3, 1], duration: 0.3 }}
               className="absolute h-px w-4 bg-zinc-800"
             />
           </div>
@@ -93,9 +114,9 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
-            animate={{ opacity: 1, backdropFilter: 'blur(24px)' }}
-            exit={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 flex flex-col items-center justify-center gap-6 bg-black/80 md:hidden"
           >
@@ -134,6 +155,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+    </motion.nav>
   )
 }
